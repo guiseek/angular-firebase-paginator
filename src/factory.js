@@ -60,9 +60,6 @@ class Paginator {
           this.dropLast(vals)
         }
       }
-      Object.keys(vals).map(key => {
-        
-      })
       this.currentSet = vals;
       opts.cb(vals);
     }
