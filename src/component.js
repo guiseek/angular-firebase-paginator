@@ -6,7 +6,7 @@ let component = {
     nextText: '@'
   },
   controller: 'FirebasePaginatorController',
-  templateUrl: `
+  template: `
     <nav aria-label="paginator">
       <a
         class="btn btn-default"

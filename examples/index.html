@@ -7,14 +7,59 @@
     <title>Firebase Paginator (AngularJS)</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   </head>
-  <body data-ng-controller="AppController">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.min.js"></script>
+  <body data-ng-controller="AppController as ctrl">
+    <ul>
+      <li ng-repeat="child in ctrl.childsPaginated" ng-bind="child.description"></li>
+    </ul>
+    <firebase-paginator
+      ref="ctrl.childs"
+      items="ctrl.childsPaginated"
+      prev-text="Prev"
+      next-text="Next">
+    </firebase-paginator>
+
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
     <!--<script src="https://unpkg.com/ng-svg-styling-map@1.1.1/dist/bundle.min.js"></script>-->
     <script src="../dist/bundle.min.js"></script>
     <script>
       angular
-        .module('app', ['ngFbPaginator'])
-        .controller('AppController', ['$scope',function($scope) {
+        .module('app', ['firebase','firebase.paginator'])
+        .config(function ($firebaseRefProvider) {
+          // Initialize Firebase
+          var config = {
+            apiKey: "AIzaSyARLuS4N2rtuR0qBXIcpsUgaeSi4TpgJfE",
+            authDomain: "beerboard-88de6.firebaseapp.com",
+            databaseURL: "https://beerboard-88de6.firebaseio.com",
+            projectId: "beerboard-88de6",
+            storageBucket: "beerboard-88de6.appspot.com",
+            messagingSenderId: "10670058375"
+          };
+          $firebaseRefProvider
+            .registerUrl({
+              default: config.databaseURL,
+              childs: config.databaseURL + '/childs'
+            });
+
+          firebase.initializeApp(config);
+        })
+        .controller('AppController', ['Service',function(Service) {
+          var ctrl = this
+          ctrl.childs = Service.getPaginated()
+        }])
+        .factory('Service', ['$firebaseRef','$firebasePaginator',function($firebaseRef,$firebasePaginator) {
+          var ref = $firebaseRef.childs
+          var pageSize = 5
+          return {
+            getPaginated: function() {
+              var paginator = new $firebasePaginator(ref, pageSize)
+              return paginator
+            }
+          }
         }])
     </script>
   </body>

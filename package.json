@@ -1,5 +1,5 @@
 {
-  "name": "ng-firebase-paginator",
+  "name": "angular-firebase-paginator",
   "version": "0.0.1",
   "description": "Firebase paginator (angular 1.x)",
   "main": "src/index.js",
@@ -43,20 +43,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/guiseek/ng-svg-styling-map.git"
+    "url": "git+https://github.com/guiseek/angular-firebase-paginator.git"
   },
   "keywords": [
-    "angular",
     "ng",
+    "angular",
     "firebase",
-    "paginator"
+    "paginator",
+    "paginate",
+    "pager"
   ],
   "author": "Gui Seek <guiseek@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/guiseek/ng-firebase-paginator/issues"
+    "url": "https://github.com/guiseek/angular-firebase-paginator/issues"
   },
-  "homepage": "https://github.com/guiseek/ng-firebase-paginator#readme",
+  "homepage": "https://github.com/guiseek/angular-firebase-paginator#readme",
   "devDependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
